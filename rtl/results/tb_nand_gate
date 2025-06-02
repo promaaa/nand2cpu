@@ -1,0 +1,63 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x14a0048e0 .scope module, "tb_nand_gate" "tb_nand_gate" 2 3;
+ .timescale -9 -12;
+v0x14a01a810_0 .var "test_a", 0 0;
+v0x14a01a8c0_0 .var "test_b", 0 0;
+v0x14a01a970_0 .net "test_y", 0 0, L_0x14a01ab70;  1 drivers
+S_0x14a00a530 .scope module, "dut" "nand_gate" 2 10, 3 3 0, S_0x14a0048e0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+P_0x14a008630 .param/l "WIDTH" 0 3 3, +C4<00000000000000000000000000000001>;
+L_0x14a01aa40 .functor AND 1, v0x14a01a810_0, v0x14a01a8c0_0, C4<1>, C4<1>;
+L_0x14a01ab70 .functor NOT 1, L_0x14a01aa40, C4<0>, C4<0>, C4<0>;
+v0x14a00a6a0_0 .net *"_ivl_0", 0 0, L_0x14a01aa40;  1 drivers
+v0x14a01a620_0 .net "a", 0 0, v0x14a01a810_0;  1 drivers
+v0x14a01a6c0_0 .net "b", 0 0, v0x14a01a8c0_0;  1 drivers
+v0x14a01a750_0 .net "y", 0 0, L_0x14a01ab70;  alias, 1 drivers
+    .scope S_0x14a0048e0;
+T_0 ;
+    %vpi_call 2 18 "$dumpfile", "nand_gate.vcd" {0 0 0};
+    %vpi_call 2 19 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x14a0048e0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x14a01a810_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x14a01a8c0_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 23 "$display", "a=%b, b=%b, y=%b", v0x14a01a810_0, v0x14a01a8c0_0, v0x14a01a970_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x14a01a810_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x14a01a8c0_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 26 "$display", "a=%b, b=%b, y=%b", v0x14a01a810_0, v0x14a01a8c0_0, v0x14a01a970_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x14a01a810_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x14a01a8c0_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 29 "$display", "a=%b, b=%b, y=%b", v0x14a01a810_0, v0x14a01a8c0_0, v0x14a01a970_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x14a01a810_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x14a01a8c0_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 32 "$display", "a=%b, b=%b, y=%b", v0x14a01a810_0, v0x14a01a8c0_0, v0x14a01a970_0 {0 0 0};
+    %vpi_call 2 34 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tests/tb_nand_gate.v";
+    "rtl/nand_gate.v";
