@@ -1,0 +1,44 @@
+# Build directories
+build/
+*.out
+*.vcd
+*.fst
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Vivado/Xilinx
+*.jou
+*.log
+*.str
+*.xpr
+.Xil/
+*.hw
+*.bit
+*.ltx
+*.dcp
+
+# Assembleur outputs
+*.bin
+*.hex
+!tools/assembler/test.bin
+!tools/assembler/test.bin.hex
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*~
+*.tmp
+*.bak
