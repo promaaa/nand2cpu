@@ -21,7 +21,7 @@
 
 ## Overview
 
-This repository contains the complete source code for **Part 1** of the "From Bits to Chip" series by Promaa. This first episode demonstrates how to build a 16-bit ALU (Arithmetic Logic Unit) starting from a single NAND gate.
+This repository contains the complete source code for **Part 1** of the "From Bits to Chip" series. This first episode demonstrates how to build your first CPU starting from a single NAND gate.
 
 **Episode Goal:** Understand how a single logic gate (NAND) can eventually calculate 7 + 8 = 15 through progressive building blocks.
 
