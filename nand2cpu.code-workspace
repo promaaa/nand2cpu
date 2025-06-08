@@ -1,0 +1,90 @@
+{
+    "folders": [
+        {
+            "name": "nand2cpu",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.associations": {
+            "*.v": "verilog",
+            "*.vh": "verilog",
+            "*.sv": "systemverilog"
+        },
+        "files.exclude": {
+            "**/build/**": true,
+            "**/.DS_Store": true,
+            "**/__pycache__/**": true,
+            "**/*.pyc": true
+        },
+        "terminal.integrated.defaultProfile.osx": "zsh",
+        "verilog.linting.linter": "none",
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+    },
+    "extensions": {
+        "recommendations": [
+            "mshr-h.veriloghdl",
+            "ms-python.python",
+            "yzhang.markdown-all-in-one"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Build NAND Test",
+                "type": "shell",
+                "command": "make",
+                "args": ["sim-tb_nand_gate"],
+                "group": {
+                    "kind": "build",
+                    "isDefault": false
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "Quick Test",
+                "type": "shell",
+                "command": "make",
+                "args": ["quick-test"],
+                "group": {
+                    "kind": "test",
+                    "isDefault": true
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "Test All",
+                "type": "shell",
+                "command": "make",
+                "args": ["test-all"],
+                "group": "test",
+                "problemMatcher": []
+            },
+            {
+                "label": "Build FPGA",
+                "type": "shell",
+                "command": "make",
+                "args": ["fpga"],
+                "group": "build",
+                "problemMatcher": []
+            },
+            {
+                "label": "Test Assembler",
+                "type": "shell",
+                "command": "make",
+                "args": ["assembler"],
+                "group": "test",
+                "problemMatcher": []
+            },
+            {
+                "label": "Clean Build",
+                "type": "shell",
+                "command": "make",
+                "args": ["clean"],
+                "group": "build",
+                "problemMatcher": []
+            }
+        ]
+    }
+}
