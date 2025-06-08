@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/github/license/promaaa/nand2cpu?style=flat-square)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/promaaa/nand2cpu?style=flat-square)](https://github.com/promaaa/nand2cpu/commits/main)
 
-**From NAND Gate to 16-bit ALU: Part 1 of the "From Bits to Chip" Series** 
+**From NAND Gate to 16-bit ALU: Part 1 of the "From Bits to Chip" Series 🧮** 
 
 *This repository contains the complete source code for Episode 1 - demonstrating how a single NAND gate can calculate 7 + 8 = 15*
 
@@ -290,7 +290,7 @@ Distributed under the **MIT License** - see `LICENSE` for details.
 
 <div align="center">
 
-**Enjoyed Part 1? Please star this repository!**
+**Enjoyed Part 1? Please star ⭐️ this repository!**
 
 **Subscribe to the series**: [YouTube Channel](https://www.youtube.com/your-channel) • [Follow on GitHub](https://github.com/promaaa)
 
