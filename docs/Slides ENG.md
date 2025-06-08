@@ -174,28 +174,9 @@ NAND decoder → MUX (3-bit $opcode$)
   - `ADD → 0010`  
   - `R1,R2,R3 → 001 010 011`  
   - Pack as `0010 001 010 011 000`
-*Full code → https://github.com/promaaa/edge-asic/assembler/*
+*Full code → https://github.com/promaaa/nand2cpu*
 ---
-## Encoder in Action
 
-```python
-opcode_map = {
-    'MOV': '0001',
-    'ADD': '0010',  # key operation
-    'SUB': '0011',
-    'AND': '0100',
-    'OR':  '0101',
-    'XOR': '0110'
-}
-
-def encode_instruction(mnemonic, regs):
-    op    = opcode_map[mnemonic]
-    rbits = [reg_map[r] for r in regs]
-    word  = f"{op} {rbits[0]} {rbits[1]} {rbits[2]} 000"
-    write_to_bin(word)
-
-```
----
 ## Conclusion
 
 |      🔧 ALU       |  🚀 Pipeline  | 🐍 Assembler |
@@ -218,9 +199,9 @@ def encode_instruction(mnemonic, regs):
 
 Code, schematics & testbenches on :
 
-https://github.com/promaaa/edge-asic
+https://github.com/promaaa/nand2cpu
 
-👍 Like, 💬 comment & 🔔 subscribe for next month’s FB2C episode.
+👍 Like, 💬 comment & 🔔 subscribe for next FB2C episode.
 
 ---
 

@@ -7,258 +7,235 @@
 [![License](https://img.shields.io/github/license/promaaa/nand2cpu?style=flat-square)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/promaaa/nand2cpu?style=flat-square)](https://github.com/promaaa/nand2cpu/commits/main)
 
-**Complete Edge AI accelerator: from silicon to quantized CNN**
+**Complete Edge AI accelerator: from silicon to quantized CNN** 🚀
 
 *Building a complete Edge AI accelerator from the ground up - 6 months journey from logic gates to neural network inference*
 
-[Documentation](docs/) • [Quick Start](#quick-start)
+[Quick Start](#quick-start) • [Testing](#testing) • [Contributing](#contributing)
 
 </div>
 
 ---
 
-## Project Overview
+## Overview 📋
 
-This project documents the complete construction of an Edge AI accelerator, from logic gates to neural network inference. Inspired by the "Nand2Tetris" methodology, it covers the entire hardware/software stack necessary for efficiently deploying AI models on embedded devices.
+This project documents the complete construction of an Edge AI accelerator, from logic gates to neural network inference. Inspired by the "Nand2Tetris" methodology, it covers the entire hardware/software stack for efficient AI deployment on embedded devices.
 
-**Target Goal:** Demonstrate int8 CNN inference on FPGA and MCU with custom hardware optimizations.
+**Goal:** Demonstrate int8 CNN inference on FPGA and MCU with custom hardware optimizations.
 
 ### Key Features
 
 - **Bottom-up approach**: Each component built from NAND primitives
-- **Complete documentation**: Detailed planning, test scripts, and implementation guide
-- **Edge AI focus**: Optimizations specific for embedded inference
-- **Open Source**: Code, schematics and documentation freely available
+- **Complete toolchain**: RTL modules, assembler, test suite, and build automation
+- **Edge AI focus**: Optimizations for embedded inference
+- **Open Source**: All code, schematics and documentation freely available
 
 ---
 
-## Project Architecture
+## Project Structure 📁
 
 ```
 nand2cpu/
-├── rtl/                      # Verilog RTL modules
-│   ├── nand_gate.v           # Universal NAND gate
-│   ├── and_gate.v            # AND gate (2× NAND)
-│   ├── or_gate.v             # OR gate (3× NAND)
-│   ├── alu8.v                # 8-bit ALU (7 operations)
-│   └── alu16.v               # 16-bit ALU (chained)
-├── assembler/                # Python assembler
-│   ├── parser.py             # Syntax analysis
-│   ├── encoder.py            # Machine code generation
-│   ├── main.py               # User interface
-│   └── test.asm              # Example program
-├── tests/                    # Testbenches and validation
-│   ├── tb_nand_gate.v        # Exhaustive NAND test
-│   ├── tb_alu16.v            # ALU test with carry
-│   └── add7_plus_8.v         # Specific addition test
-├── docs/                     # Complete documentation
-├── top.v                     # FPGA top-level module
-└── top.xdc                   # Timing constraints
+├── src/                      # Source code
+│   ├── rtl/                  # Verilog RTL modules
+│   │   ├── nand_gate.v       # Universal NAND gate
+│   │   ├── and_gate.v        # AND gate (2× NAND)
+│   │   ├── or_gate.v         # OR gate (3× NAND)
+│   │   ├── alu8.v            # 8-bit ALU (7 operations)
+│   │   └── alu16.v           # 16-bit ALU (chained)
+│   ├── fpga/                 # FPGA top-level files
+│   │   ├── top.v             # Main FPGA module
+│   │   └── top.xdc           # Timing constraints
+│   └── testbenches/          # Simulation testbenches
+│       ├── tb_nand_gate.v    # NAND gate test
+│       ├── tb_alu16.v        # 16-bit ALU test
+│       └── add7_plus_8.v     # Specific test case
+├── tools/                    # Development tools
+│   ├── assembler/            # Python assembler
+│   │   ├── main.py           # Main interface
+│   │   ├── parser.py         # Instruction parser
+│   │   └── encoder.py        # Machine code generator
+│   └── scripts/              # Build automation
+│       ├── build_sim.sh      # Simulation build
+│       └── build_fpga.tcl    # FPGA build
+├── build/                    # Build outputs (git-ignored)
+├── examples/                 # Example programs
+└── Makefile                  # Build automation
+```
+
+---
+
+## Quick Start ⚡
+
+### Prerequisites
+
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install iverilog python3 make
+
+# macOS
+brew install icarus-verilog python3
+```
+
+### Basic Usage
+
+```bash
+# Clone repository
+git clone https://github.com/promaaa/nand2cpu.git
+cd nand2cpu
+
+# Run quick tests
+make quick-test
+
+# Test specific modules
+make sim-tb_nand_gate      # Test NAND gate
+make sim-add7_plus_8       # Test ALU with 7+8=15
+
+# Test assembler
+make assembler
+hexdump -C tools/assembler/test.bin
 ```
 
 ---
 
 ## RTL Modules
 
-### Digital Logic Fundamentals
+### Logic Gates
 
-| Module | Description | NAND Gates | Functionality |
-|--------|-------------|------------|---------------|
-| `nand_gate.v` | Parametric NAND gate | 1 | Universal primitive |
-| `and_gate.v` | 4-bit AND gate | 2 | A & B = ~(~(A & B)) |
-| `or_gate.v` | OR gate | 3 | A \| B = ~(~A & ~B) |
+| Module | Description | NAND Gates | Function |
+|--------|-------------|------------|----------|
+| `nand_gate.v` | Universal NAND gate | 1 | Basic primitive |
+| `and_gate.v` | 4-bit AND gate | 2 | A & B |
+| `or_gate.v` | OR gate | 3 | A \| B |
 
 ### Arithmetic Logic Unit
 
 **8-bit ALU (`alu8.v`)**
-- **7 operations**: ADD, SUB, AND, OR, XOR, SHL, SHR, NOT
+- **Operations**: ADD, SUB, AND, OR, XOR, SHL, SHR, NOT
 - **Flags**: Zero, Carry, Overflow
 - **Latency**: 1 cycle (combinatorial)
 
 **16-bit ALU (`alu16.v`)**
-- **Architecture**: Chaining of 2× 8-bit ALUs
+- **Architecture**: Chained 2× 8-bit ALUs
 - **Carry management**: Automatic propagation
-- **Special operations**: Inter-ALU shifts
-
-### System Module (`top.v`)
-
-- **Clock divider**: 100 MHz → 1 Hz
-- **State machine**: Demonstration of 3 additions
-- **FPGA interface**: Compatible with Pynq-Z1/Z2
 
 ---
 
-## Python Assembler
+## Assembler
 
-The assembler converts human-readable assembly code into 16-bit machine instructions.
-
-### Software Architecture
-
-```python
-# Assembler pipeline
-Source ASM → Parser → Encoder → 16-bit Binary
-```
-
-**Components:**
-- **`parser.py`**: Tokenization and syntax validation
-- **`encoder.py`**: Opcode mapping + register encoding
-- **`main.py`**: CLI interface
+The Python assembler converts assembly code into 16-bit machine instructions.
 
 ### Instruction Format
 
 ```assembly
-# Supported syntax
-ADD R0, R1, R2  ; R0 = R1 + R2 (addition)
-SUB R3, R4, R5  ; R3 = R4 - R5 (subtraction)
-AND R6, R7, R0  ; R6 = R7 & R0 (logical AND)
-SHL R1, R2      ; R1 = R2 << 1 (left shift)
-NOT R3, R4      ; R3 = ~R4 (inversion)
+# 3-operand instructions
+ADD R0, R1, R2  ; R0 = R1 + R2
+SUB R3, R4, R5  ; R3 = R4 - R5
+AND R6, R7, R0  ; R6 = R7 & R0
+
+# 2-operand instructions  
+SHL R1, R2      ; R1 = R2 << 1
+NOT R3, R4      ; R3 = ~R4
 ```
 
 ### Binary Format (16 bits)
 
 ```
-[15:12] [11:9] [8:6] [5:3] [2:0]
-Opcode   Rd    Rs1   Rs2  Flags
-```
-
-### Usage
-
-```bash
-cd assembler/
-python main.py test.asm test.bin
-hexdump -C test.bin  # Binary verification
+[15:13] [12:10] [9:7] [6:4] [3:0]
+Opcode    Rd    Rs1   Rs2  Unused
 ```
 
 ---
 
-## Testing and Validation
+## Testing
 
-### Test Structure
-
-```bash
-tests/
-├── Unit tests (logic gates)
-├── Integration tests (ALU)
-└── System tests (top module)
-```
-
-### Test Commands
+### Available Commands
 
 ```bash
-# NAND gate test (complete truth table)
-iverilog -o tests/results/tb_nand_gate rtl/nand_gate.v tests/tb_nand_gate.v
-vvp tests/results/tb_nand_gate
+# Quick validation
+make quick-test           # NAND + ALU tests
+make validate            # Structure validation
 
-# 8-bit ALU test - specific case 7+8=15
-iverilog -o tests/results/add7_plus_8 rtl/alu8.v tests/add7_plus_8.v
-vvp tests/results/add7_plus_8
+# Comprehensive testing
+make test-gates          # All logic gate tests
+make test-alu            # All ALU tests  
+make test-all            # Complete test suite
 
-# 16-bit ALU test with carry propagation
-iverilog -o tests/results/tb_alu16 rtl/alu16.v rtl/alu8.v tests/tb_alu16.v
-vvp tests/results/tb_alu16
+# Individual tests
+make sim-tb_nand_gate    # NAND gate test
+make sim-tb_alu16        # 16-bit ALU test
+make sim-add7_plus_8     # Addition test case
+
+# Tools
+make assembler           # Test assembler
+make clean              # Clean build files
 ```
 
-### Functional Coverage
+### Test Coverage
 
-| Testbench | Coverage | Validation |
-|-----------|----------|------------|
-| `tb_nand_gate.v` | 100% combinations | ✅ Truth table |
-| `tb_and_gate.v` | 16 4-bit vectors | ✅ Exhaustive |
-| `add7_plus_8.v` | Critical case | ✅ Manual calculation |
-| `tb_alu16.v` | 7 opcodes × carry | ✅ Chaining |
+| Testbench | Coverage | Status |
+|-----------|----------|--------|
+| `tb_nand_gate.v` | All truth table | ✅ |
+| `tb_and_gate.v` | 16 4-bit vectors | ✅ |
+| `add7_plus_8.v` | Critical case | ✅ |
+| `tb_alu16.v` | 7 opcodes + carry | ✅ |
 
 ---
 
-## Quick Start
-
-### Installation
+## FPGA Deployment
 
 ```bash
-# System prerequisites (Ubuntu/Debian)
-sudo apt update
-sudo apt install iverilog python3 python3-pip git
+# Generate bitstream (requires Vivado)
+make fpga
 
-# Clone and setup
-git clone https://github.com/promaaa/nand2cpu.git
-cd nand2cpu
+# Manual build
+vivado -mode batch -source tools/scripts/build_fpga.tcl
 ```
 
-### Quick Tests
-
-```bash
-# 1. Logic gates test
-iverilog -o test_gates rtl/nand_gate.v rtl/and_gate.v tests/tb_and_gate.v
-vvp test_gates
-
-# 2. ALU test with 7+8 addition
-iverilog -o test_alu rtl/alu8.v tests/add7_plus_8.v
-vvp test_alu
-
-# 3. Program assembly
-cd assembler/
-python main.py test.asm test.bin
-echo "Generated binary:"
-hexdump -C test.bin
-```
-
-### FPGA Simulation 
-
-```bash
-# Vivado bitstream generation
-vivado -mode batch -source scripts/build_fpga.tcl
-```
-
----
-
-## Learning Resources
-
-The complete development process of this project has been documented and is available for educational purposes.
-
-**📺 Documentation:** [Link - Coming Soon]
+**Target**: Pynq-Z1/Z2 (xc7z020clg400-1)
 
 ---
 
 ## Contributing
 
-This educational project welcomes:
+Contributions welcome! Areas of interest:
 
-- **Bug reports**: Failing tests, incomplete documentation
-- **Suggestions**: RTL optimizations, new test cases
-- **Documentation**: README improvements, code comments
-- **Pull requests**: Fixes and enhancements
+- **Bug reports**: Test failures, documentation issues
+- **Optimizations**: RTL improvements, new test cases
+- **Features**: Additional instructions, hardware modules
 
-### Guidelines
+### Process
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit with descriptive messages
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
 
 ---
 
 ## License
 
-Distributed under the **MIT** License.
+Distributed under the **MIT** License. See `LICENSE` for more information.
+
 ---
 
-## Acknowledgments
+## Acknowledgments 🙏
 
-- **Nand2Tetris**: Methodology and educational inspiration
-- **MIT 6.004**: Microarchitecture and pipeline concepts
-- **OpenLane**: Open-source ASIC design flow
-- **TinyML**: Embedded Edge AI community
+- **Nand2Tetris**: Educational methodology and inspiration
+- **MIT 6.004**: Computer architecture concepts
+- **TinyML Community**: Embedded AI techniques
 
 ---
 
 <div align="center">
 
-**If this project helps you, please consider giving it a star!**
+**If this project helps you, please ⭐ star it!**
 
-[Contact](mailto:promaadev@proton.me) 
+[Contact](mailto:promaadev@proton.me) • [Documentation](docs/)
 
-*Personal training project in Edge AI / Hardware*
+*Educational project for Hardware/Software co-design*
 
 </div>
 

@@ -1,4 +1,4 @@
-# Building a CPU from NAND
+ # Building a CPU from NAND
 
 ## Project Introduction
 
@@ -126,7 +126,7 @@ Here is a quick look at the python encoder's code.
 
 
 ## **Lower-third overlay**: GitHub logo + repo URL + “Subscribe for more”
-If you found this content helpful and want to support me, please **like**, **comment**, and **subscribe** so you don’t miss next month’s deep dive into Edge AI on real hardware!
+If you found this content helpful and want to support me, please **like**, **comment**, and **subscribe** so you don’t miss next deep dive into Edge AI on real hardware!
 
 
 
