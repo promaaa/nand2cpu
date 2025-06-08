@@ -1,4 +1,4 @@
-# nand2cpu: Building a CPU from NAND Gates
+# nand2cpu: Building a CPU from NAND Gates 🧮
 
 <div align="center">
 
@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/github/license/promaaa/nand2cpu?style=flat-square)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/promaaa/nand2cpu?style=flat-square)](https://github.com/promaaa/nand2cpu/commits/main)
 
-**From NAND Gate to 16-bit ALU: Part 1 of the "From Bits to Chip" Series 🧮** 
+**From NAND Gate to 16-bit ALU: Part 1 of the "From Bits to Chip" Series** 
 
 *This repository contains the complete source code for Episode 1 - demonstrating how a single NAND gate can calculate 7 + 8 = 15*
 
