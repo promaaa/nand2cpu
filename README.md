@@ -292,7 +292,7 @@ Distributed under the **MIT License** - see `LICENSE` for details.
 
 **Enjoyed Part 1? Please star ⭐️ this repository!**
 
-**Subscribe to the series**: [YouTube Channel](https://www.youtube.com/your-channel) • [Follow on GitHub](https://github.com/promaaa)
+**Subscribe to the series**: [YouTube Channel](https://www.youtube.com/@promaa_) • [Follow on GitHub](https://github.com/promaaa)
 
 [Episode Script](docs/Script%20ENG.md) • [Contact](mailto:promaadev@proton.me)
 
