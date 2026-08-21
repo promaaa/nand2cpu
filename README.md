@@ -11,7 +11,7 @@
 
 *This repository contains the complete source code for Episode 1 - demonstrating how a single NAND gate can calculate 7 + 8 = 15*
 
-[![Watch on YouTube](docs/Images/video_thumbnail.png)](https://www.youtube.com/watch?v=wIBkvQ6MfKQ)
+[![Watch on YouTube](docs/Images/youtube_thumbnail.png)](https://www.youtube.com/watch?v=wIBkvQ6MfKQ)
 
 ▶️ **[Click here to watch on YouTube](https://www.youtube.com/watch?v=wIBkvQ6MfKQ)**
 
