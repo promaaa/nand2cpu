@@ -1,4 +1,4 @@
-# nand2cpu: Building a CPU from NAND Gates 🧮
+# nand2cpu: a 16-bit ALU from NAND gates
 
 <div align="center">
 
@@ -7,9 +7,9 @@
 [![License](https://img.shields.io/github/license/promaaa/nand2cpu?style=flat-square)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/promaaa/nand2cpu?style=flat-square)](https://github.com/promaaa/nand2cpu/commits/main)
 
-**From NAND Gate to 16-bit ALU: Part 1 of the "From Bits to Chip" Series** 
+**From a single NAND gate to a 16-bit ALU**
 
-*This repository contains the complete source code for Episode 1 - demonstrating how a single NAND gate can calculate 7 + 8 = 15*
+*Complete source code for the companion video, showing how a single NAND gate can calculate 7 + 8 = 15*
 
 [![Watch on YouTube](docs/Images/youtube_thumbnail.png)](https://www.youtube.com/watch?v=wIBkvQ6MfKQ)
 
@@ -23,7 +23,7 @@
 
 ## Overview
 
-This repository contains the complete source code for **Part 1** of the "From Bits to Chip" series. This first episode demonstrates how to build your first CPU starting from a single NAND gate.
+This repository contains the complete source code for the companion video. It builds up from a single NAND gate to a 16-bit ALU.
 
 **Episode Goal:** Understand how a single logic gate (NAND) can eventually calculate 7 + 8 = 15 through progressive building blocks.
 
@@ -42,7 +42,7 @@ This repository contains the complete source code for **Part 1** of the "From Bi
 ## Project Structure
 
 ```
-nand2cpu/                     # Part 1: Building a CPU from NAND
+nand2cpu/                     # 16-bit ALU from NAND gates
 ├── src/                      # Source code
 │   ├── rtl/                  # Verilog RTL modules
 │   │   ├── nand_gate.v       # Universal NAND gate primitive
