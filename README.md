@@ -24,7 +24,7 @@
 
 ## How it works
 
-![NOT, AND, OR and XOR built from NAND gates. The inputs step through 00, 01, 10 and 11, wires that carry 1 turn orange, and each truth table marks the current row](docs/Images/gates.gif)
+<img src="docs/Images/gates.gif" alt="NOT, AND, OR and XOR built from NAND gates. The inputs step through 00, 01, 10 and 11, wires that carry 1 turn orange, and each truth table marks the current row" width="480"/>
 
 1. One NAND with its inputs tied is a NOT. Two NANDs make an AND, three an OR, four an XOR or a 2:1 multiplexer.
 2. An XOR and an AND make a half adder. Two half adders and an OR make a full adder. Full adders and a tree of multiplexers make the 8-bit ALU, and two of those make the 16-bit ALU.
