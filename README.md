@@ -1,6 +1,6 @@
 <div align="center">
 
-# nand2cpu
+# NAND2CPU
 
 **A 16-bit CPU core wired from 2,288 NAND gates and 152 flip-flops, in Verilog.<br/>It grew from the ALU built in the first episode of the From Bits to Chips video series.**
 
