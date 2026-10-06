@@ -1,5 +1,6 @@
 # promaa 02/06/2025 - Main assembler (reading, parsing, encoding, writing)
 
+import sys
 from parser import Parser
 from encoder import Encoder
 
@@ -16,9 +17,10 @@ def assemble_file(input_file, output_file):
     for instr in instructions:
         # Reconstruct text line for encoder
         line = instr['opcode'] + ' ' + ' '.join(instr['operands'])
-        encoded = encoder.encode(line)
-        if encoded is not None:
-            machine_code.append(encoded)
+        try:
+            machine_code.append(encoder.encode(line))
+        except ValueError as error:
+            sys.exit(f"{input_file}:{instr['line']}: {error}")
     
     # Write machine code to output file
     with open(output_file, 'wb') as f:
@@ -37,7 +39,6 @@ def assemble_file(input_file, output_file):
     print(f"Hex file: {output_file + '.hex'}")
 
 if __name__ == "__main__":
-    import sys
     if len(sys.argv) < 3:
         print("Usage: python main.py input.asm output.bin")
         sys.exit(1)

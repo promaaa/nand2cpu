@@ -16,59 +16,19 @@ class Encoder:
     
     def encode(self, instruction):
         parts = instruction.replace(',', ' ').split()
-        if not parts:
-            return None
-            
         opcode = parts[0].upper()
         if opcode not in self.opcodes:
-            return None
-            
-        op_code = self.opcodes[opcode]
-        
-        # Format for ADD, SUB, AND, OR, XOR
-        if opcode in ['ADD', 'SUB', 'AND', 'OR', 'XOR']:
-            if len(parts) != 4:
-                return None
-            rd = int(parts[1][1:])  # R0-R7
-            rs1 = int(parts[2][1:])
-            rs2 = int(parts[3][1:])
-            return (op_code << 13) | (rd << 10) | (rs1 << 7) | (rs2 << 4)
-            
-        # Format for SHL, SHR, NOT
-        elif opcode in ['SHL', 'SHR', 'NOT']:
-            if len(parts) != 3:
-                return None
-            rd = int(parts[1][1:])
-            rs = int(parts[2][1:])
-            return (op_code << 13) | (rd << 10) | (rs << 7)
-            
-        return None
+            raise ValueError(f"unknown instruction {parts[0]}")
 
-    def encode_file(self, input_file, output_file):
-        with open(input_file, 'r') as f:
-            lines = f.readlines()
-            
-        machine_code = []
-        for line in lines:
-            # Ignore comments
-            if ';' in line:
-                line = line.split(';')[0]
-            line = line.strip()
-            if not line:
-                continue
-                
-            encoded = self.encode(line)
-            if encoded is not None:
-                machine_code.append(encoded)
-                
-        with open(output_file, 'wb') as f:
-            for code in machine_code:
-                # Write each instruction in big-endian
-                msb = (code >> 8) & 0xFF
-                lsb = code & 0xFF
-                f.write(bytes([msb, lsb]))
-                
-        # Hex version for debugging
-        with open(output_file + '.hex', 'w') as f:
-            for code in machine_code:
-                f.write(f"{code:04X}\n")
+        # ADD, SUB, AND, OR, XOR take Rd, Rs1, Rs2. SHL, SHR, NOT take Rd, Rs.
+        count = 2 if opcode in ('SHL', 'SHR', 'NOT') else 3
+        if len(parts) - 1 != count:
+            raise ValueError(f"{opcode} takes {count} registers")
+        regs = [self.register(p) for p in parts[1:]] + [0]
+        return (self.opcodes[opcode] << 13) | (regs[0] << 10) | (regs[1] << 7) | (regs[2] << 4)
+
+    @staticmethod
+    def register(token):
+        if token[:1].upper() != 'R' or not token[1:].isdigit() or int(token[1:]) > 7:
+            raise ValueError(f"bad register {token}, expected R0 to R7")
+        return int(token[1:])

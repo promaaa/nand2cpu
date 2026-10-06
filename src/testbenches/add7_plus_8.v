@@ -26,12 +26,12 @@ module add7_plus_8;
     Op = 3'b000;  // Addition
     Cin = 0;
 
-    #10;  // Laisser la propagation
+    #10;  // Let the result settle
 
     if (Y == 15 && Cout == 0) begin
       $display("PASS : Y=%0d, Cout=%0d", Y, Cout);
     end else begin
-      $display("FAIL : Y=%0d, Cout=%0d", Y, Cout);
+      $fatal(1, "FAIL : Y=%0d, Cout=%0d", Y, Cout);
     end
 
     $finish;

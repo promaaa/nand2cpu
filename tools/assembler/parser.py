@@ -1,41 +1,30 @@
 # promaa 02/06/2025 - Assembly instruction parser (basic structure)
 
-import re
-
 class Parser:
-    def __init__(self):
-        self.labels = {}
-        self.instructions = []
-    
     def parse_file(self, filename):
         """Parse an assembly file and return instructions and labels"""
         instructions = []
         labels = {}
         
-        try:
-            with open(filename, 'r') as file:
-                lines = file.readlines()
-            
-            for line_num, line in enumerate(lines, 1):
-                # Clean the line
-                clean_line = self._clean_line(line)
-                if not clean_line:
-                    continue
-                
-                # Detect labels
-                if clean_line.endswith(':'):
-                    label = clean_line[:-1].strip()
-                    labels[label] = len(instructions)
-                    continue
-                
-                # Parse the instruction
-                instruction = self._parse_instruction(clean_line, line_num)
-                if instruction:
-                    instructions.append(instruction)
+        with open(filename, 'r') as file:
+            lines = file.readlines()
         
-        except FileNotFoundError:
-            print(f"Error: File {filename} not found")
-            return [], {}
+        for line_num, line in enumerate(lines, 1):
+            # Clean the line
+            clean_line = self._clean_line(line)
+            if not clean_line:
+                continue
+            
+            # Detect labels
+            if clean_line.endswith(':'):
+                label = clean_line[:-1].strip()
+                labels[label] = len(instructions)
+                continue
+            
+            # Parse the instruction
+            instruction = self._parse_instruction(clean_line, line_num)
+            if instruction:
+                instructions.append(instruction)
         
         return instructions, labels
     

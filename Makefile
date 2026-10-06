@@ -1,76 +1,34 @@
-# Makefile pour nand2cpu
-# Simplifie les commandes de build et test
+# nand2cpu - build and test commands
 
-.PHONY: help clean test-all test-gates test-alu sim-% fpga assembler
+RTL   := $(wildcard src/rtl/*.v)
+SIM   := build/sim
+TESTS := tb_nand_gate tb_and_gate tb_or_gate tb_alu8 tb_alu16 add7_plus_8
 
-# Configuration
-TOOLS_DIR := tools
-SCRIPTS_DIR := $(TOOLS_DIR)/scripts
-BUILD_DIR := build
-SIM_DIR := $(BUILD_DIR)/sim
-SYNTH_DIR := $(BUILD_DIR)/synth
+.PHONY: help test assembler fpga clean
 
 help:
-	@echo "nand2cpu - Makefile d'aide"
-	@echo ""
-	@echo "Commandes disponibles:"
-	@echo "  help        - Afficher cette aide"
-	@echo "  clean       - Nettoyer les builds"
-	@echo "  test-all    - Exécuter tous les tests"
-	@echo "  test-gates  - Tester les portes logiques"
-	@echo "  test-alu    - Tester les ALU"
-	@echo "  quick-test  - Tests rapides (NAND + ALU)"
-	@echo "  validate    - Valider la structure du repository"
-	@echo "  sim-<name>  - Compiler et lancer une simulation (ex: sim-tb_nand_gate)"
-	@echo "  fpga        - Build pour FPGA (nécessite Vivado)"
-	@echo "  assembler   - Tester l'assembleur"
-	@echo ""
-	@echo "Exemples:"
-	@echo "  make sim-tb_nand_gate"
-	@echo "  make test-gates"
-	@echo "  make fpga"
+	@echo "make test         run every testbench, the assembler check and the FPGA top compile"
+	@echo "make sim-<name>   run one testbench from src/testbenches, e.g. make sim-add7_plus_8"
+	@echo "make assembler    assemble tools/assembler/test.asm"
+	@echo "make fpga         build the PYNQ-Z1 bitstream (needs Vivado)"
+	@echo "make clean        delete build/"
+
+test: $(addprefix sim-,$(TESTS))
+	@cd tools/assembler && python3 main.py test.asm ../../build/test.bin > /dev/null
+	@cmp build/test.bin tools/assembler/test.bin
+	@iverilog -o $(SIM)/top $(RTL) src/fpga/top.v
+	@echo "All tests passed."
+
+sim-%:
+	@mkdir -p $(SIM)
+	@iverilog -s $* -o $(SIM)/$* $(RTL) src/testbenches/$*.v
+	@cd $(SIM) && vvp -n $*
+
+assembler:
+	cd tools/assembler && python3 main.py test.asm test.bin
+
+fpga:
+	vivado -mode batch -source tools/scripts/build_fpga.tcl
 
 clean:
-	@echo "Nettoyage des builds..."
-	rm -rf $(BUILD_DIR)/*
-	mkdir -p $(SIM_DIR) $(SYNTH_DIR)
-	@echo "Build directory cleaned."
-
-# Tests spécifiques
-test-gates: sim-tb_nand_gate sim-tb_and_gate sim-tb_or_gate
-	@echo "✅ Tests des portes logiques terminés"
-
-test-alu: sim-add7_plus_8 sim-tb_alu16
-	@echo "✅ Tests ALU terminés"
-
-test-all: test-gates test-alu
-	@echo "✅ Tous les tests terminés"
-
-# Pattern pour compiler et lancer les simulations
-sim-%:
-	@echo "Building simulation for $*..."
-	@$(SCRIPTS_DIR)/build_sim.sh $*
-	@echo "Running simulation..."
-	@cd $(SIM_DIR) && vvp $*
-
-# Build FPGA
-fpga:
-	@echo "Building for FPGA..."
-	@mkdir -p $(SYNTH_DIR)
-	@cd . && vivado -mode batch -source $(SCRIPTS_DIR)/build_fpga.tcl
-
-# Test assembleur
-assembler:
-	@echo "Testing assembler..."
-	@cd $(TOOLS_DIR)/assembler && python3 main.py test.asm test.bin
-	@echo "✅ Assembleur testé avec succès"
-	@echo "Fichier binaire généré: $(TOOLS_DIR)/assembler/test.bin"
-
-# Tests rapides
-quick-test: sim-tb_nand_gate sim-add7_plus_8
-	@echo "✅ Tests rapides terminés"
-
-# Validation de la structure
-validate:
-	@echo "Validation de la structure du repository..."
-	@./tools/scripts/validate_structure.sh
+	rm -rf build
