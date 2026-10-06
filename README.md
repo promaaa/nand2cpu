@@ -1,304 +1,141 @@
-# nand2cpu: a 16-bit ALU from NAND gates
-
 <div align="center">
 
-[![Stars](https://img.shields.io/github/stars/promaaa/nand2cpu?style=flat-square)](https://github.com/promaaa/nand2cpu/stargazers)
-[![Issues](https://img.shields.io/github/issues/promaaa/nand2cpu?style=flat-square)](https://github.com/promaaa/nand2cpu/issues)
-[![License](https://img.shields.io/github/license/promaaa/nand2cpu?style=flat-square)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/promaaa/nand2cpu?style=flat-square)](https://github.com/promaaa/nand2cpu/commits/main)
+# nand2cpu
 
-**From a single NAND gate to a 16-bit ALU**
+**A 16-bit ALU wired from one kind of gate: 830 two-input NANDs, in Verilog.<br/>The code for the first episode of the From Bits to Chips video series.**
 
-*Complete source code for the companion video, showing how a single NAND gate can calculate 7 + 8 = 15*
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Verilog](https://img.shields.io/badge/Verilog-Icarus%20Verilog-6e4a7e?style=flat-square)](#quick-start)
+[![Python](https://img.shields.io/badge/Python-3-3776ab?style=flat-square&logo=python&logoColor=white)](#python-assembler)
+[![YouTube](https://img.shields.io/badge/YouTube-Building%20a%20CPU%20Core-ff0000?style=flat-square&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=wIBkvQ6MfKQ)
 
-[![Watch on YouTube](docs/Images/youtube_thumbnail.png)](https://www.youtube.com/watch?v=wIBkvQ6MfKQ)
+<a href="https://www.youtube.com/watch?v=wIBkvQ6MfKQ"><img src="docs/Images/youtube_thumbnail.png" alt="From Bits to Chips: Building a CPU Core, video thumbnail" width="100%"/></a>
 
-▶️ **[Click here to watch on YouTube](https://www.youtube.com/watch?v=wIBkvQ6MfKQ)**
-
-[Quick Start](#quick-start) • [Testing](#testing) • [Episode Script](docs/Script%20ENG.md)
+<sub>Click on the image to watch the episode on YouTube</sub>
 
 </div>
 
----
+## Highlights
 
-## Overview
+- **One gate.** [`nand_gate.v`](src/rtl/nand_gate.v) holds the only logic expression in the design, `y = ~(a & b)`. Every other module connects NAND instances. After flattening, Yosys finds nothing but NAND gates in the 16-bit ALU.
+- **Eight operations.** ADD, SUB, AND, OR, XOR, SHL, SHR and NOT, with the carry, borrow or shifted bit passed between the two bytes.
+- **Tested on every input.** `tb_alu8` compares all 1,048,576 combinations of A, B, Op and Cin with a behavioural model. `tb_alu16` checks 1,296 byte-boundary cases and 100,000 random ones.
+- **The video demo.** `make sim-add7_plus_8` prints the `PASS : Y=15, Cout=0` shown in the episode.
 
-This repository contains the complete source code for the companion video. It builds up from a single NAND gate to a 16-bit ALU.
+## How it works
 
-**Episode Goal:** Understand how a single logic gate (NAND) can eventually calculate 7 + 8 = 15 through progressive building blocks.
+1. One NAND with its inputs tied is a NOT. Two NANDs make an AND, three an OR, four an XOR or a 2:1 multiplexer.
+2. An XOR and an AND make a half adder. Two half adders and an OR make a full adder.
+3. Eight full adders in a chain make the 8-bit adder. For SUB, `Op[0]` inverts B and the carry with XOR gates, because A − B = A + ~B + 1.
+4. A tree of six 2:1 multiplexers selects one result with `Op[0]`, then `Op[1]`, then `Op[2]`.
+5. Two 8-bit ALUs and three multiplexers make the 16-bit ALU. The carry goes from the low byte to the high byte, and the other way for SHR.
 
+![The 8-bit ALU: B and Cin go through XOR gates controlled by Op[0] into a chain of eight full adders, then a second XOR gives the borrow. AND, OR, XOR and NOT blocks and the two shift wirings feed a tree of six 2:1 multiplexers driven by Op[0], Op[1] and Op[2], which outputs Cout and Y](docs/Images/alu8.svg)
 
-### Key Features
+## Gate count and delay
 
-- **NAND-only Implementation**: Every component built from single NAND gate primitive
-- **Progressive Building**: From logic gates → half adder → full adder → 8-bit ALU → 16-bit ALU
-- **Complete Toolchain**: Verilog RTL, testbenches, Python assembler, and build automation
-- **Educational Focus**: Clear progression following the video episode structure
-- **Hands-on Validation**: Live testing with calculator verification (7 + 8 = 15)
-- **Open Source**: All code and documentation freely available on GitHub
+| Block | Built from | NAND gates | Longest path (NAND levels) |
+|---|---|--:|--:|
+| NOT | one NAND, inputs tied | 1 | 1 |
+| AND | NAND, then NOT | 2 | 2 |
+| OR | NOT a, NOT b, then NAND | 3 | 2 |
+| XOR | four NANDs | 4 | 3 |
+| 2:1 multiplexer | NOT and three NANDs | 4 | 3 |
+| Half adder | XOR and AND | 6 | 3 |
+| Full adder | two half adders and OR | 15 | 7 |
+| **8-bit ALU** | adder, logic, six multiplexers | **408** | **45** |
+| **16-bit ALU** | two 8-bit ALUs, three multiplexers | **830** | **93** |
 
----
+The path doubles from 8 to 16 bits because the carry ripples through every full adder. The video uses this delay to introduce carry look-ahead and pipelining. The full adder follows the construction in the video, so it uses 15 NAND gates where a hand-optimised one needs 9.
 
-## Project Structure
-
-```
-nand2cpu/                     # 16-bit ALU from NAND gates
-├── src/                      # Source code
-│   ├── rtl/                  # Verilog RTL modules
-│   │   ├── nand_gate.v       # Universal NAND gate primitive
-│   │   ├── and_gate.v        # AND gate (2× NAND)
-│   │   ├── or_gate.v         # OR gate (3× NAND) 
-│   │   ├── alu8.v            # 8-bit ALU (7 operations)
-│   │   └── alu16.v           # 16-bit ALU (chained from 8-bit)
-│   ├── fpga/                 # FPGA implementation files
-│   │   ├── top.v             # Top-level FPGA module
-│   │   └── top.xdc           # Timing constraints
-│   └── testbenches/          # Simulation testbenches
-│       ├── tb_nand_gate.v    # NAND gate verification
-│       ├── tb_alu16.v        # 16-bit ALU verification
-│       └── add7_plus_8.v     # 7+8=15 demonstration
-├── tools/                    # Episode development tools
-│   ├── assembler/            # Python assembler (featured in video)
-│   │   ├── main.py           # Main assembler interface
-│   │   ├── parser.py         # Instruction parser
-│   │   └── encoder.py        # 16-bit machine code generator
-│   └── scripts/              # Build automation
-│       ├── build_sim.sh      # Simulation build
-│       └── build_fpga.tcl    # FPGA synthesis
-├── docs/                     # Episode documentation
-│   ├── Script ENG.md         # Complete video script
-│   └── Slides ENG.md         # Presentation slides
-├── examples/                 # Assembly examples
-│   └── test_vectors.asm      # Sample assembly code
-└── Makefile                  # Build automation (make help)
-```
-
----
-
-## Quick Start
-
-### Prerequisites
+<details>
+<summary><b>Measure it yourself</b> with Yosys</summary>
 
 ```bash
-# Ubuntu/Debian
-sudo apt update
-sudo apt install iverilog python3 make
-
-# macOS
-brew install icarus-verilog python3
+yosys -p "read_verilog src/rtl/*.v; hierarchy -top alu16; proc; flatten; techmap; stat; ltp -noff"
 ```
 
-### Basic Usage
+Yosys maps each NAND to one `$_AND_` and one `$_NOT_` cell. These are the only logic cells in the report, and the `$scopeinfo` cells only record the module hierarchy. The number of `$_AND_` cells is the NAND count. Divide the longest-path length by two to get NAND levels.
+
+</details>
+
+## Operations
+
+| `Op` | Name | `Y` | `Cout` |
+|:-:|---|---|---|
+| `000` | ADD | A + B + Cin | carry |
+| `001` | SUB | A − B − Cin | borrow |
+| `010` | AND | A & B | 0 |
+| `011` | OR | A \| B | 0 |
+| `100` | XOR | A ^ B | 0 |
+| `101` | SHL | A << 1, Cin enters bit 0 | old top bit |
+| `110` | SHR | A >> 1, Cin enters the top bit | old bit 0 |
+| `111` | NOT | ~A | 0 |
+
+[`alu8`](src/rtl/alu8.v) and [`alu16`](src/rtl/alu16.v) have the same ports: `A`, `B`, `Op`, `Cin`, `Y`, `Cout`.
+
+## Quick start
+
+Requirements: [Icarus Verilog](https://steveicarus.github.io/iverilog/), Python 3 and make.
 
 ```bash
-# Clone repository
-git clone https://github.com/promaaa/nand2cpu.git
-cd nand2cpu
-
-# Reproduce the video demonstration: 7 + 8 = 15
-make sim-add7_plus_8
-
-# Test the complete 16-bit ALU
-make sim-tb_alu16
-
-# Test individual components
-make sim-tb_nand_gate      # Test NAND gate primitive
-
-# Test the Python assembler (featured in episode)
-make assembler
-hexdump -C tools/assembler/test.bin
+sudo apt install iverilog python3 make    # Debian, Ubuntu
+sudo pacman -S iverilog python make       # Arch
+brew install icarus-verilog python3       # macOS
 ```
-
----
-
-## Episode Highlights
-
-### Building Blocks (as shown in video)
-
-| Component | Description | NAND Gates | Episode Section |
-|-----------|-------------|------------|-----------------|
-| `nand_gate.v` | Universal primitive | 1 | Foundation |
-| `and_gate.v` | 4-bit AND gate | 2 | Basic Logic |
-| `or_gate.v` | OR gate | 3 | Logic Gates |
-| `alu8.v` | 8-bit ALU | ~200 | Main Build |
-| `alu16.v` | 16-bit ALU | ~400 | Scaling Up |
-
-### The 7 + 8 = 15 Demonstration
-
-This repository implements the exact demonstration from the video:
-
-```verilog
-// From add7_plus_8.v testbench
-initial begin
-    A = 8'b00000111;  // 7 in binary
-    B = 8'b00001000;  // 8 in binary
-    op = 3'b000;      // ADD operation
-    
-    #10;
-    
-    // Expected: Result = 15 (0b00001111)
-    $display("7 + 8 = %d", Result);
-end
-```
-
-**Visual confirmation**: The simulator shows the exact same result as a calculator!
-
----
-
-## RTL Modules
-
-### 8-bit to 16-bit ALU Progression
-
-**8-bit ALU (`alu8.v`)** - Core of the episode
-- **Operations**: ADD, SUB, AND, OR, XOR, SHL, SHR, NOT
-- **Construction**: Half-adder → Full-adder → 8-bit chain
-- **Flags**: Zero, Carry, Overflow detection
-- **Latency**: 0.8ns (as shown in video benchmarks)
-
-**16-bit ALU (`alu16.v`)** - Scaling demonstration  
-- **Architecture**: Two chained 8-bit ALUs
-- **Carry propagation**: Between upper and lower bytes
-- **Latency**: 1.6ns (2× scaling challenge discussed)
-- **Pipelining**: Concepts introduced for performance optimization
-
----
-
-## Python Assembler (Featured Tool)
-
-The Python assembler demonstrated in the episode converts assembly instructions into 16-bit machine code, exactly as shown in the video.
-
-### Assembly Language (Episode Example)
-
-```assembly
-# Featured in video: 3-operand instructions
-ADD R0, R1, R2  ; R0 = R1 + R2
-SUB R3, R4, R5  ; R3 = R4 - R5  
-AND R6, R7, R0  ; R6 = R7 & R0
-
-# 2-operand instructions
-SHL R1, R2      ; R1 = R2 << 1
-NOT R3, R4      ; R3 = ~R4
-```
-
-### 16-bit Instruction Format
-
-```
-[15:13] [12:10] [9:7] [6:4] [3:0]
-Opcode    Rd    Rs1   Rs2  Unused
-```
-
-**Parser**: Tokenizes mnemonics and operands, validates syntax  
-**Encoder**: Maps to 4-bit opcodes, packs into 16-bit words
-
----
-
-## Testing & Validation
-
-### Episode-Specific Tests
 
 ```bash
-# Reproduce the exact video demonstration
-make sim-add7_plus_8         # 7 + 8 = 15 calculation
-
-# Validate NAND gate foundation  
-make sim-tb_nand_gate        # Truth table verification
-
-# Test complete 16-bit ALU
-make sim-tb_alu16            # All 7 operations + carry propagation
-
-# Verify assembler functionality
-make assembler               # Parser + Encoder testing
+git clone https://github.com/promaaa/nand2cpu.git && cd nand2cpu
+make test
 ```
 
-### Comprehensive Testing
+`make test` runs every testbench, checks the assembler output and compiles the FPGA top level. It takes about 30 seconds, mostly for the exhaustive 8-bit test. The main lines of the output are:
 
-```bash
-# Quick episode validation
-make quick-test              # NAND + ALU core tests
-make validate               # Repository structure check
-
-# Full test suite
-make test-gates             # All logic gate tests  
-make test-alu               # Complete ALU validation
-make test-all               # Everything (as shown in episode)
+```
+PASS : all 1048576 combinations of A, B, Op and Cin
+PASS : 101296 boundary and random cases
+PASS : Y=15, Cout=0
+All tests passed.
 ```
 
-### Test Results (Episode Validation)
+Run one testbench with `make sim-<name>`, for example `make sim-add7_plus_8`. The gate testbenches and the demo write waveforms to `build/sim/*.vcd`, which [GTKWave](https://gtkwave.sourceforge.net/) opens.
 
-| Test | Episode Focus | Status |
-|------|---------------|--------|
-| `add7_plus_8.v` | Main demonstration | ✅ |
-| `tb_nand_gate.v` | Foundation primitive | ✅ |
-| `tb_alu16.v` | 16-bit scaling | ✅ |
-| Python Assembler | Tool demonstration | ✅ |
+## Python assembler
 
----
+The assembler from the video turns assembly into 16-bit words. The opcode is the ALU `Op`, and registers are R0 to R7. Nothing in this repository runs these words yet: a CPU also needs a register file and an instruction decoder.
 
-## Next Episodes
+```
+ 15 13   12 10   9   7   6   4   3    0
+[ Op  ] [ Rd  ] [ Rs1 ] [ Rs2 ] [ 0000 ]
+```
 
-**Coming in Part 2**: Neural Networks on Microcontrollers
-- Model compression and quantization
-- Real-time inference on STM32
-- Energy efficiency analysis
-- Live Edge AI demonstrations
+```asm
+start:
+    ADD R0, R1, R2  ; R0 = R1 + R2    -> 00A0
+    SUB R3, R4, R5  ; R3 = R4 - R5    -> 2E50
+    AND R6, R7, R0  ; R6 = R7 & R0    -> 5B80
+loop:
+    SHL R1, R2      ; R1 = R2 << 1    -> A500
+    NOT R3, R4      ; R3 = ~R4        -> EE00
+```
 
-**Full Series Roadmap**:
-- Part 3: Memory Systems and Cache Hierarchy
-- Part 4: Complete CPU Architecture  
-- Part 5: FPGA Implementation and Synthesis
-- Part 6: Custom AI Accelerator Hardware
+`make assembler` assembles this file, [`tools/assembler/test.asm`](tools/assembler/test.asm), into `test.bin` and `test.bin.hex`. An unknown instruction or a register outside R0 to R7 stops the assembler with the file and line number.
 
----
+## FPGA
 
-## Contributing
+[`src/fpga/top.v`](src/fpga/top.v) shows one addition per second on the four LEDs of a PYNQ-Z1 board (Zynq XC7Z020): 3 + 5 = 8, then 7 + 8 = 15 with all four LEDs on, then 15 + 1 = 16 with the LEDs off. `make fpga` builds the bitstream with Vivado. This build has not been tested on a board yet.
 
-Found this episode helpful? Contributions welcome!
+## Repository
 
-**Episode-specific improvements**:
-- Additional test cases for the 7+8=15 demonstration
-- Alternative ALU implementations 
-- Extended assembler instruction set
-- Performance optimizations
-
-**Documentation**:
-- Code comments and explanations
-- Additional examples following video structure
-- Educational enhancements
-
-### Process
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/episode-improvement`)
-3. Commit changes (`git commit -m 'Enhance episode demonstration'`)
-4. Push to branch (`git push origin feature/episode-improvement`)
-5. Open Pull Request
-
----
+| Path | Contents |
+|---|---|
+| [`src/rtl/`](src/rtl/) | The NAND gate and every module wired from it, up to [`alu8.v`](src/rtl/alu8.v) and [`alu16.v`](src/rtl/alu16.v) |
+| [`src/testbenches/`](src/testbenches/) | Self-checking testbenches, with the 7 + 8 = 15 demo in [`add7_plus_8.v`](src/testbenches/add7_plus_8.v) |
+| [`src/fpga/`](src/fpga/) | PYNQ-Z1 top level and pin constraints |
+| [`tools/assembler/`](tools/assembler/) | Python assembler: parser, encoder, example program |
+| [`tools/scripts/`](tools/scripts/) | Vivado build script |
+| [`docs/`](docs/) | [Video script](docs/Script%20ENG.md), [slides](docs/Slides%20ENG.md) and images |
 
 ## License
 
-This project is part of the "From Bits to Chip" educational series.  
-Distributed under the **MIT License** - see `LICENSE` for details.
-
----
-
-## Acknowledgments
-
-- **Nand2Tetris Course**: Educational methodology and inspiration for bottom-up approach
-- **MIT 6.004**: Computer architecture foundations demonstrated in this episode  
-- **Hardware Description Community**: Verilog best practices and simulation techniques
-
----
-
-<div align="center">
-
-**Enjoyed Part 1? Please star ⭐️ this repository!**
-
-**Subscribe to the series**: [YouTube Channel](https://www.youtube.com/@promaa_) • [Follow on GitHub](https://github.com/promaaa)
-
-[Episode Script](docs/Script%20ENG.md) • [Contact](mailto:promaadev@proton.me)
-
-*Educational series: From Bits to Chip - Part 1 of 6*
-
-</div>
-
+MIT, see [LICENSE](LICENSE). The bottom-up approach follows [Nand2Tetris](https://www.nand2tetris.org/) and MIT 6.004.
