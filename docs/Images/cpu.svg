@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="1200" height="820" font-family="'Times New Roman', Times, 'Nimbus Roman', 'Liberation Serif', serif">
+<title>The nand2cpu single-cycle CPU core drawn as a monochrome journal figure</title>
+<rect width="1200" height="820" fill="#FFFFFF"/>
+<rect x="400" y="50" width="160" height="46" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="480.0" y="79.0" font-size="17" fill="#000000" text-anchor="middle">DECODER</text>
+<path d="M340,73 L400,73" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="370" y="66" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">OP</text>
+<path d="M480,96 L480,130" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<path d="M70,130 L910,130" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<path d="M55,255 L85,267 L85,333 L55,345 Z" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<path d="M70,130 L70,261" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="78" y="150" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="start">JUMP</text>
+<path d="M85,300 L105,300" fill="none" stroke="#000000" stroke-width="2.2"/>
+<rect x="105" y="270" width="60" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="135.0" y="306.0" font-size="17" fill="#000000" text-anchor="middle">PC</text>
+<text x="135" y="352" font-size="16" font-style="italic" fill="#000000" text-anchor="middle">8 bits</text>
+<path d="M165,300 L210,300" fill="none" stroke="#000000" stroke-width="2.2"/>
+<circle cx="185" cy="300" r="3.5" fill="#000000"/>
+<path d="M185,300 L185,200 L165,200" fill="none" stroke="#000000" stroke-width="2.2"/>
+<rect x="105" y="180" width="60" height="40" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="135.0" y="206.0" font-size="17" fill="#000000" text-anchor="middle">+1</text>
+<path d="M105,200 L30,200 L30,275 L55,275" fill="none" stroke="#000000" stroke-width="2.2"/>
+<rect x="210" y="260" width="90" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="2.2" stroke-dasharray="8 5"/>
+<text x="255.0" y="306.0" font-size="17" fill="#000000" text-anchor="middle">ROM</text>
+<text x="255" y="362" font-size="16" font-style="italic" fill="#000000" text-anchor="middle">256 × 16</text>
+<path d="M300,300 L340,300" fill="none" stroke="#000000" stroke-width="2.2"/>
+<circle cx="340" cy="300" r="3.5" fill="#000000"/>
+<path d="M340,73 L340,700" fill="none" stroke="#000000" stroke-width="3.2"/>
+<text x="340" y="722" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">INSTRUCTION</text>
+<path d="M340,700 L42,700 L42,325 L55,325" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="190" y="692" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">ADDR</text>
+<path d="M340,255 L400,255" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="370" y="249" font-size="10" letter-spacing="1.2" fill="#000000" text-anchor="middle">RS1</text>
+<path d="M340,290 L400,290" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="370" y="284" font-size="10" letter-spacing="1.2" fill="#000000" text-anchor="middle">RS2/RD</text>
+<path d="M340,325 L400,325" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="370" y="319" font-size="10" letter-spacing="1.2" fill="#000000" text-anchor="middle">RD</text>
+<path d="M340,460 L400,460" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="359" y="454" font-size="10" letter-spacing="1.2" fill="#000000" text-anchor="middle">IMM</text>
+<rect x="400" y="230" width="120" height="150" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="460.0" y="311.0" font-size="17" fill="#000000" text-anchor="middle">REGISTERS</text>
+<text x="460" y="402" font-size="16" font-style="italic" fill="#000000" text-anchor="middle">8 × 16</text>
+<path d="M440,130 L440,230" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="448" y="150" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="start">WE</text>
+<rect x="400" y="440" width="120" height="40" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="460.0" y="466.0" font-size="15" fill="#000000" text-anchor="middle">SIGN EXT.</text>
+<path d="M380,690 L380,365 L400,365" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="372" y="359" font-size="11" letter-spacing="1.2" fill="#000000" text-anchor="end">WD</text>
+<path d="M520,270 L600,270" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="532" y="263" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="middle">A</text>
+<path d="M520,340 L600,340" fill="none" stroke="#000000" stroke-width="2.2"/>
+<text x="532" y="333" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="middle">B</text>
+<circle cx="555" cy="270" r="3.5" fill="#000000"/>
+<circle cx="575" cy="340" r="3.5" fill="#000000"/>
+<path d="M555,270 L555,560 L620,560" fill="none" stroke="#000000" stroke-width="2.2"/>
+<path d="M575,340 L575,600 L620,600" fill="none" stroke="#000000" stroke-width="2.2"/>
+<path d="M575,340 L575,178 L595,178" fill="none" stroke="#000000" stroke-width="2.2"/>
+<path d="M575,600 L575,670 L860,670" fill="none" stroke="#000000" stroke-width="2.2"/>
+<circle cx="575" cy="600" r="3.5" fill="#000000"/>
+<rect x="595" y="160" width="60" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="625.0" y="184.0" font-size="17" fill="#000000" text-anchor="middle">= 0</text>
+<path d="M625,160 L625,130" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="617" y="150" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="end">ZERO</text>
+<path d="M600,220 L680,250 L680,360 L600,390 Z" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="640.0" y="311.0" font-size="17" fill="#000000" text-anchor="middle">ALU</text>
+<path d="M665,130 L665,232" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="673" y="150" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="start">OP</text>
+<path d="M680,305 L770,305" fill="none" stroke="#000000" stroke-width="2.2"/>
+<rect x="620" y="530" width="110" height="100" fill="#FFFFFF" stroke="#000000" stroke-width="2.2" stroke-dasharray="8 5"/>
+<text x="700" y="586" font-size="17" fill="#000000" text-anchor="middle">RAM</text>
+<text x="628" y="564" font-size="11" letter-spacing="1.2" fill="#000000" text-anchor="start">ADDR</text>
+<text x="628" y="604" font-size="11" letter-spacing="1.2" fill="#000000" text-anchor="start">DATA</text>
+<text x="675" y="652" font-size="16" font-style="italic" fill="#000000" text-anchor="middle">256 × 16</text>
+<path d="M715,130 L715,530" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="723" y="150" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="start">WE</text>
+<path d="M730,600 L760,600 L760,525 L770,525" fill="none" stroke="#000000" stroke-width="2.2"/>
+<path d="M520,460 L770,460" fill="none" stroke="#000000" stroke-width="2.2"/>
+<path d="M770,280 L804,294 L804,531 L770,545 Z" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<path d="M787,130 L787,287" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="795" y="150" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="start">SEL</text>
+<path d="M804,412 L840,412 L840,690 L380,690" fill="none" stroke="#000000" stroke-width="2.2"/>
+<rect x="860" y="650" width="70" height="40" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="895.0" y="676.0" font-size="17" fill="#000000" text-anchor="middle">OUT</text>
+<path d="M895,130 L895,650" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="903" y="150" font-size="12" letter-spacing="1.2" fill="#000000" text-anchor="start">LOAD</text>
+<path d="M930,670 L990,670" fill="none" stroke="#000000" stroke-width="2.2"/>
+<circle cx="990" cy="670" r="5" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1002" y="675" font-size="16" font-style="italic" fill="#000000" text-anchor="start">LEDs on the FPGA</text>
+<rect x="940" y="230" width="60" height="30" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="1015" y="251" font-size="15" font-style="italic" fill="#000000" text-anchor="start">NAND gates and flip-flops</text>
+<rect x="940" y="280" width="60" height="30" fill="#FFFFFF" stroke="#000000" stroke-width="2.2" stroke-dasharray="8 5"/>
+<text x="1015" y="301" font-size="15" font-style="italic" fill="#000000" text-anchor="start">behavioural memory</text>
+<path d="M940,340 h60" stroke="#000000" stroke-width="1.6" stroke-dasharray="2 4"/>
+<text x="1015" y="345" font-size="15" font-style="italic" fill="#000000" text-anchor="start">control from the decoder</text>
+<text x="30" y="772" font-size="17" fill="#000000">One instruction per clock edge. The core has 2,288 NAND gates and 152 flip-flops.</text>
+<text x="30" y="796" font-size="17" fill="#000000">Longest path: 99 NAND levels, from the opcode through the ALU carry chain to a register.</text>
+</svg>

@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" width="1200" height="470" font-family="'Times New Roman', Times, 'Nimbus Roman', 'Liberation Serif', serif">
+<title>nand2cpu instruction formats drawn as a monochrome journal figure</title>
+<rect width="1200" height="470" fill="#FFFFFF"/>
+<text x="271.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">15</text>
+<text x="313.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">14</text>
+<text x="355.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">13</text>
+<text x="397.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">12</text>
+<text x="439.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">11</text>
+<text x="481.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">10</text>
+<text x="523.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">9</text>
+<text x="565.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">8</text>
+<text x="607.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">7</text>
+<text x="649.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">6</text>
+<text x="691.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">5</text>
+<text x="733.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">4</text>
+<text x="775.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">3</text>
+<text x="817.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">2</text>
+<text x="859.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">1</text>
+<text x="901.0" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="middle">0</text>
+<text x="962" y="50" font-size="13" letter-spacing="1.2" fill="#000000" text-anchor="start">EXAMPLE</text>
+<text x="40" y="102" font-size="15" letter-spacing="1.2" fill="#000000" text-anchor="start">REGISTER FORMAT</text>
+<text x="40" y="126" font-size="16" font-style="italic" fill="#000000" text-anchor="start">ALU, LD, ST, OUT</text>
+<rect x="250" y="68" width="168" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="334.0" y="94" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">op</text>
+<path d="M250,106 L418,106" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M292,106 L292,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M334,106 L334,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M376,106 L376,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="271.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="313.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="355.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="397.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<rect x="418" y="68" width="126" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="481.0" y="94" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">rd / rs</text>
+<path d="M418,106 L544,106" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M460,106 L460,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M502,106 L502,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="439.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="481.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="523.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<rect x="544" y="68" width="126" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="607.0" y="94" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">rs1</text>
+<path d="M544,106 L670,106" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M586,106 L586,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M628,106 L628,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="565.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="607.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="649.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<rect x="670" y="68" width="126" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="733.0" y="94" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">rs2</text>
+<path d="M670,106 L796,106" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M712,106 L712,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M754,106 L754,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="691.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="733.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="775.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<rect x="796" y="68" width="126" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="859.0" y="94" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">unused</text>
+<path d="M796,106 L922,106" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M838,106 L838,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M880,106 L880,144" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="817.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="859.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="901.0" y="133" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="962" y="102" font-size="17" font-style="italic" fill="#000000" text-anchor="start">ADD R5, R1, R2</text>
+<text x="962" y="126" font-size="17" font-style="normal" fill="#000000" text-anchor="start">= 0x0A50</text>
+<text x="40" y="216" font-size="15" letter-spacing="1.2" fill="#000000" text-anchor="start">IMMEDIATE FORMAT</text>
+<text x="40" y="240" font-size="16" font-style="italic" fill="#000000" text-anchor="start">LDI</text>
+<rect x="250" y="182" width="168" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="334.0" y="208" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">op</text>
+<path d="M250,220 L418,220" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M292,220 L292,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M334,220 L334,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M376,220 L376,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="271.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="313.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="355.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="397.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<rect x="418" y="182" width="126" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="481.0" y="208" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">rd</text>
+<path d="M418,220 L544,220" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M460,220 L460,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M502,220 L502,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="439.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="481.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="523.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<rect x="544" y="182" width="378" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="733.0" y="208" font-size="16" font-style="italic" fill="#000000" text-anchor="middle">immediate, −256 to 255</text>
+<path d="M544,220 L922,220" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M586,220 L586,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M628,220 L628,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M670,220 L670,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M712,220 L712,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M754,220 L754,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M796,220 L796,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M838,220 L838,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M880,220 L880,258" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="565.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="607.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="649.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="691.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="733.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="775.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="817.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="859.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="901.0" y="247" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="962" y="216" font-size="17" font-style="italic" fill="#000000" text-anchor="start">LDI R4, -1</text>
+<text x="962" y="240" font-size="17" font-style="normal" fill="#000000" text-anchor="start">= 0x89FF</text>
+<text x="40" y="330" font-size="15" letter-spacing="1.2" fill="#000000" text-anchor="start">BRANCH FORMAT</text>
+<text x="40" y="354" font-size="16" font-style="italic" fill="#000000" text-anchor="start">BZ, BNZ, JMP</text>
+<rect x="250" y="296" width="168" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="334.0" y="322" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">op</text>
+<path d="M250,334 L418,334" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M292,334 L292,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M334,334 L334,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M376,334 L376,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="271.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="313.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="355.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="397.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<rect x="418" y="296" width="126" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="481.0" y="322" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">rs</text>
+<path d="M418,334 L544,334" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M460,334 L460,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M502,334 L502,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="439.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="481.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="523.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<rect x="544" y="296" width="42" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="565.0" y="322" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<path d="M544,334 L586,334" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="565.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<rect x="586" y="296" width="336" height="76" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+<text x="754.0" y="322" font-size="18" font-style="normal" fill="#000000" text-anchor="middle">address</text>
+<path d="M586,334 L922,334" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M628,334 L628,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M670,334 L670,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M712,334 L712,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M754,334 L754,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M796,334 L796,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M838,334 L838,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<path d="M880,334 L880,372" fill="none" stroke="#000000" stroke-width="1.2"/>
+<text x="607.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="649.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="691.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="733.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="775.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="817.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">1</text>
+<text x="859.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="901.0" y="361" font-size="19" font-style="normal" fill="#000000" text-anchor="middle">0</text>
+<text x="962" y="330" font-size="17" font-style="italic" fill="#000000" text-anchor="start">BNZ R3, loop</text>
+<text x="962" y="354" font-size="17" font-style="normal" fill="#000000" text-anchor="start">= 0xD604</text>
+<text x="40" y="418" font-size="17" fill="#000000">Bit 15 is on the left. ALU instructions, LDI and LD write the register in bits 11–9, and ST and OUT read it.</text>
+<text x="40" y="442" font-size="17" fill="#000000">The examples come from the assembler. In BNZ R3, loop, the label loop is address 4.</text>
+</svg>
