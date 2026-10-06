@@ -62,10 +62,10 @@
                 "problemMatcher": []
             },
             {
-                "label": "Test Assembler",
+                "label": "Run Fibonacci",
                 "type": "shell",
                 "command": "make",
-                "args": ["assembler"],
+                "args": ["run-fibonacci"],
                 "group": "test",
                 "problemMatcher": []
             },

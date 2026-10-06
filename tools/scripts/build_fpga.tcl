@@ -7,8 +7,9 @@ set part_name "xc7z020clg400-1" ;# PYNQ-Z1
 # Create project
 create_project $project_name ./build/synth/$project_name -part $part_name -force
 
-# Add RTL sources and constraints
+# Add RTL sources, the program for the ROM (make fpga writes it) and constraints
 add_files -norecurse [glob ./src/rtl/*.v ./src/fpga/*.v]
+add_files -norecurse ./build/program.mem
 add_files -fileset constrs_1 -norecurse ./src/fpga/top.xdc
 set_property top top [current_fileset]
 

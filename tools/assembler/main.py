@@ -18,7 +18,7 @@ def assemble_file(input_file, output_file):
         # Reconstruct text line for encoder
         line = instr['opcode'] + ' ' + ' '.join(instr['operands'])
         try:
-            machine_code.append(encoder.encode(line))
+            machine_code.append(encoder.encode(line, labels))
         except ValueError as error:
             sys.exit(f"{input_file}:{instr['line']}: {error}")
     
